@@ -23,6 +23,9 @@
     },
     "autoload": {
         "psr-4": {"WonderWp\\Functions\\": "src"},
+        "files": [
+            "src/functions.php"
+        ],
         "exclude-from-classmap": [
             "/tests/"
         ]

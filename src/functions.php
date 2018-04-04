@@ -12,7 +12,6 @@ namespace WonderWp\Functions;
  * trace($mydata);
  * </code>
  *
- * @name trace
  */
 function trace()
 {
