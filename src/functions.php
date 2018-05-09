@@ -189,7 +189,6 @@ function include_plugin_file($pluginRoot, $filePath)
 /**
  * Test if a request has been made via ajax or not
  * Boolean, returns true or false
- * @name isAjax
  * @return boolean
  */
 function isAjax()
