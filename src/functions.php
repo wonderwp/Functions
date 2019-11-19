@@ -53,19 +53,23 @@ function array_merge_recursive_distinct(array &$array1, array &$array2)
 
 /**
  * array_diff but recursive
+ *
  * @param array $aArray1
  * @param array $aArray2
  *
  * @return array
  */
-function array_diff_recursive(array $aArray1, array $aArray2) {
-    $aReturn = array();
+function array_diff_recursive(array $aArray1, array $aArray2)
+{
+    $aReturn = [];
 
     foreach ($aArray1 as $mKey => $mValue) {
         if (array_key_exists($mKey, $aArray2)) {
             if (is_array($mValue)) {
                 $aRecursiveDiff = array_diff_recursive($mValue, $aArray2[$mKey]);
-                if (count($aRecursiveDiff)) { $aReturn[$mKey] = $aRecursiveDiff; }
+                if (count($aRecursiveDiff)) {
+                    $aReturn[$mKey] = $aRecursiveDiff;
+                }
             } else {
                 if ($mValue != $aArray2[$mKey]) {
                     $aReturn[$mKey] = $mValue;
@@ -75,21 +79,21 @@ function array_diff_recursive(array $aArray1, array $aArray2) {
             $aReturn[$mKey] = $mValue;
         }
     }
+
     return $aReturn;
 }
 
 /**
  * array_filter, but recursive
+ *
  * @param array $input
  *
  * @return array
  */
 function array_filter_recursive(array $input)
 {
-    foreach ($input as &$value)
-    {
-        if (is_array($value))
-        {
+    foreach ($input as &$value) {
+        if (is_array($value)) {
             $value = array_filter_recursive($value);
         }
     }
@@ -99,6 +103,7 @@ function array_filter_recursive(array $input)
 
 /**
  * implode, but recursive
+ *
  * @param string $glue
  * @param array  $array
  *
@@ -123,6 +128,7 @@ function implode_recursive($glue, array $array)
 
 /**
  * Redirect to a url either via the back end if headers have not been sent, or via the frontend otherwise
+ *
  * @param string $url
  */
 function redirect($url)
@@ -136,6 +142,7 @@ function redirect($url)
 
 /**
  * Takes an array of params and builds html arguments with them
+ *
  * @param array $params
  *
  * @return string
@@ -148,8 +155,15 @@ function paramsToHtml(array $params)
         if (is_array($val)) {
             $val = implode(' ', $val);
         }
+        if (is_object($val)) {
+            if (method_exists($val, '__toString')) {
+                $val = $val->__toString();
+            } else {
+                $val = '';
+            }
+        }
 
-        $html .= " {$key}=\"{$val}\"";
+        $html .= " {$key}=\"" . strip_tags($val) . "\"";
     }
 
     return $html;
