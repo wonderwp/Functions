@@ -163,6 +163,11 @@ function paramsToHtml(array $params)
             }
         }
 
+        if (is_null($val)) {
+            $html .= " {$key}";
+            continue;
+        }
+
         $html .= " {$key}=\"" . strip_tags($val) . "\"";
     }
 
